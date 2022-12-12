@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 const fetch = require('node-fetch');
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
+require('dotenv').config()
 
 const app = express();
 
@@ -46,7 +46,7 @@ app.post('/random-number', (req, res) => {
 })
 
 app.get('/api', async (req, res) => {
-    let data = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Manchester,GB&units=metric&appid=857c3164a727aa134aae02a6ba1e1a77')
+    let data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Manchester,GB&units=metric&appid=${process.env.API_KEY}`)
     data = await data.json();
 
     let obj = {
